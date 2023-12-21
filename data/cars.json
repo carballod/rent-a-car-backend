@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "brand": "Toyota",
+    "model": "Camry",
+    "year": 2020,
+    "mileage": 20000,
+    "color": "White",
+    "air_conditioning": true,
+    "passengers": 5,
+    "transmission": "Automatic"
+  },
+  {
+    "id": 2,
+    "brand": "Honda",
+    "model": "Civic",
+    "year": 2018,
+    "mileage": 25000,
+    "color": "Silver",
+    "air_conditioning": true,
+    "passengers": 4,
+    "transmission": "Automatic"
+  },
+  {
+    "id": 3,
+    "brand": "Ford",
+    "model": "Escape",
+    "year": 2022,
+    "mileage": 15000,
+    "color": "Red",
+    "air_conditioning": true,
+    "passengers": 5,
+    "transmission": "Automatic"
+  },
+  {
+    "id": 4,
+    "brand": "Chevrolet",
+    "model": "Malibu",
+    "year": 2019,
+    "mileage": 28000,
+    "color": "Black",
+    "air_conditioning": true,
+    "passengers": 5,
+    "transmission": "Automatic"
+  },
+  {
+    "id": 5,
+    "brand": "Nissan",
+    "model": "Altima",
+    "year": 2021,
+    "mileage": 20000,
+    "color": "White",
+    "air_conditioning": true,
+    "passengers": 5,
+    "transmission": "Automatic"
+  },
+  {
+    "id": 6,
+    "brand": "Hyundai",
+    "model": "Elantra",
+    "year": 2017,
+    "mileage": 35000,
+    "color": "Gray",
+    "air_conditioning": true,
+    "passengers": 4,
+    "transmission": "Automatic"
+  },
+  {
+    "id": 7,
+    "brand": "Kia",
+    "model": "Soul",
+    "year": 2020,
+    "mileage": 18000,
+    "color": "Green",
+    "air_conditioning": true,
+    "passengers": 5,
+    "transmission": "Automatic"
+  },
+  {
+    "id": 8,
+    "brand": "Mazda",
+    "model": "CX-5",
+    "year": 2021,
+    "mileage": 22000,
+    "color": "Silver",
+    "air_conditioning": true,
+    "passengers": 5,
+    "transmission": "Automatic"
+  },
+  {
+    "id": 9,
+    "brand": "Subaru",
+    "model": "Outback",
+    "year": 2019,
+    "mileage": 26000,
+    "color": "Blue",
+    "air_conditioning": true,
+    "passengers": 5,
+    "transmission": "Automatic"
+  },
+  {
+    "id": 10,
+    "brand": "Volkswagen",
+    "model": "Jetta",
+    "year": 2022,
+    "mileage": 12000,
+    "color": "White",
+    "air_conditioning": true,
+    "passengers": 5,
+    "transmission": "Automatic"
+  }
+]
