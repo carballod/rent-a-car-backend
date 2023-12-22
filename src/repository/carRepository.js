@@ -1,7 +1,5 @@
-// carRepository.js
 const fs = require('fs');
 const path = require('path');
-const Car = require('../models/car');
 const mapJsonToCar = require('../mapper/carMapper');
 
 const DATA_CARS_JSON = path.join(__dirname, '../../data/cars.json');
@@ -20,7 +18,6 @@ class CarRepository {
             // parsea el contenido del archivo JSON y lo guarda en un array de objetos
         } catch (error) {
             this.cars = [];
-            // si no existe el archivo, crea un array vacío
         }
     }
 
@@ -31,12 +28,10 @@ class CarRepository {
         // convierte el array de objetos en un string y lo guarda en el archivo JSON
     }
 
-    // obtiene todos los autos
     getAllCars() {
         return this.cars.map(mapJsonToCar);
     }
 
-    // obtiene un auto por su id
     getCarById(carId) {
         carId = parseInt(carId);
         const carData = this.cars.find(car => car.id == carId);
@@ -44,41 +39,24 @@ class CarRepository {
         // si existe el auto, lo mapea y lo devuelve, sino devuelve null
     }
 
-    // crea un auto
     createCar(carData) {
-        
-        const newCar = new Car(
-            carData.id,
-            carData.brand,
-            carData.model,
-            carData.year,
-            carData.mileage,
-            carData.color,
-            carData.air_conditioning,
-            carData.passengers,
-            carData.transmission
-        );
-
-        this.cars.push(newCar);
+        this.cars.push(carData);
         this.saveData();
-        return newCar;
+        return carData;
     }
 
-    // actualiza un auto
     updateCar(carId, updatedCarData) {
         carId = parseInt(carId);
         const index = this.cars.findIndex(car => car.id === carId);
-        // busca el indice del auto a actualizar, lo actualiza y guarda los datos
         if (index !== -1) {
-            this.cars[index] = updatedCarData;
+            // Copiar valores actualizados al objeto existente
+            this.cars[index] = { ...this.cars[index], ...updatedCarData };
             this.saveData();
             return true;
         }
-        // si no existe el auto, devuelve false
         return false;
     }
 
-    // elimina un auto
     deleteCar(carId) {
         const index = this.cars.findIndex(car => car.id === carId);
         if (index !== -1) {

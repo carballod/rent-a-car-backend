@@ -108,5 +108,16 @@
     "air_conditioning": true,
     "passengers": 5,
     "transmission": "Automatic"
+  },
+  {
+    "id": 11,
+    "brand": "Example Car Update",
+    "model": "Example Car Update",
+    "year": 2023,
+    "mileage": 5000,
+    "color": "Example Car",
+    "air_conditioning": false,
+    "passengers": 1,
+    "transmission": "Automatic"
   }
 ]
