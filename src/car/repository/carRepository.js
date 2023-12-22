@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const mapJsonToCar = require('../mapper/carMapper');
 
-const DATA_CARS_JSON = path.join(__dirname, '../../data/cars.json');
+const DATA_CARS_JSON = path.join(__dirname, '../../../data/cars.json');
 
 class CarRepository {
     // cargar todos los datos al instanciar la clase 

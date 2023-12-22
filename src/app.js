@@ -1,8 +1,8 @@
 const express = require('express');
 
-const CarRepository = require('./src/repository/carRepository');
-const CarService = require('./src/service/carService')
-const CarController =  require('./src/controllers/carController')
+const CarRepository = require('./car/repository/carRepository');
+const CarService = require('./car/service/carService')
+const CarController =  require('./car/controllers/carController')
 
 const app = express();
 app.use(express.json());
