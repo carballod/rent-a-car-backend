@@ -4,26 +4,25 @@ class CarService {
         this.carRepository = carRepository;
     }
 
-    getAllCars() {
-        return this.carRepository.getAllCars();
+    async getAllCars() {
+        return await this.carRepository.getAllCars();
     }
 
-    getCarById(carId) {
-        return this.carRepository.getCarById(carId);
+    async getCarById(carId) {
+        return await this.carRepository.getCarById(carId);
     }
 
-    createCar(carData) {
-        const newCar = this.carRepository.createCar(carData);
-        return newCar;
+    async createCar(carData) {
+        return await this.carRepository.createCar(carData);
     }
 
-    updateCar(carId, updatedCarData) {
-        const success = this.carRepository.updateCar(carId, updatedCarData);
+    async updateCar(carId, updatedCarData) {
+        const success = await this.carRepository.updateCar(carId, updatedCarData);
         return success;
     }
 
-    deleteCar(carId) {
-        const success = this.carRepository.deleteCar(carId);
+    async deleteCar(carId) {
+        const success = await this.carRepository.deleteCar(carId);
         return success;
     }
 }

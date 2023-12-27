@@ -1,71 +1,37 @@
-const fs = require('fs');
-const path = require('path');
-const mapJsonToCar = require('../mapper/carMapper');
-
-const DATA_CARS_JSON = path.join(__dirname, '../../../data/cars.json');
+const { Car } = require("../models/car");
+const carMapper = require("../mapper/carMapper");
 
 class CarRepository {
-    // cargar todos los datos al instanciar la clase 
-    constructor() {
-        this.loadData();
-    }
+  async getAllCars() {
+    const cars = await Car.findAll();
+    return cars.map(carMapper);
+  }
 
-    // cargar los datos del archivo JSON
-    loadData() {
-        try {
-            const data = fs.readFileSync(DATA_CARS_JSON, 'utf8');
-            this.cars = JSON.parse(data);
-            // parsea el contenido del archivo JSON y lo guarda en un array de objetos
-        } catch (error) {
-            this.cars = [];
-        }
-    }
+  async getCarById(carId) {
+    const car = await Car.findByPk(carId);
+    return car ? carMapper(car.toJSON()) : null;
+  }
 
-    // guardar los datos en el archivo JSON
-    saveData() {
-        const data = JSON.stringify(this.cars, null, 2);
-        fs.writeFileSync(DATA_CARS_JSON, data, 'utf8');
-        // convierte el array de objetos en un string y lo guarda en el archivo JSON
-    }
+  async createCar(carData) {
+    const newCar = await Car.create(carData);
+    return carMapper(newCar.toJSON());
+  }
 
-    getAllCars() {
-        return this.cars.map(mapJsonToCar);
-    }
+  async updateCar(carId, updatedCarData) {
+    const [updatedRows] = await Car.update(updatedCarData, {
+      where: { id: carId },
+    });
+    // devuelve true si las filas se actualizaron
+    return updatedRows > 0;
+  }
 
-    getCarById(carId) {
-        carId = parseInt(carId);
-        const carData = this.cars.find(car => car.id == carId);
-        return carData ? mapJsonToCar(carData) : null;
-        // si existe el auto, lo mapea y lo devuelve, sino devuelve null
-    }
+  async deleteCar(carId) {
+    const deletedRows = await Car.destroy({
+      where: { id: carId },
+    });
 
-    createCar(carData) {
-        this.cars.push(carData);
-        this.saveData();
-        return carData;
-    }
-
-    updateCar(carId, updatedCarData) {
-        carId = parseInt(carId);
-        const index = this.cars.findIndex(car => car.id === carId);
-        if (index !== -1) {
-            // Copiar valores actualizados al objeto existente
-            this.cars[index] = { ...this.cars[index], ...updatedCarData };
-            this.saveData();
-            return true;
-        }
-        return false;
-    }
-
-    deleteCar(carId) {
-        const index = this.cars.findIndex(car => car.id === carId);
-        if (index !== -1) {
-            this.cars.splice(index, 1);
-            this.saveData();
-            return true;
-        }
-        return false;
-    }
+    return deletedRows > 0;
+  }
 }
 
 module.exports = CarRepository;

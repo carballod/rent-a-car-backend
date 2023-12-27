@@ -15,49 +15,65 @@ class CarController {
     }
 
 
-    index(req, res) {
-        const allCars = this.carService.getAllCars();
-        res.json(allCars);
+    async index(req, res) {
+        try {
+            const allCars = await this.carService.getAllCars();
+            res.json(allCars);
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
+        }
     }
 
-    view(req, res) {
+    async view(req, res) {
         const carId = parseInt(req.params.id);
-        const car = this.carService.getCarById(carId);
-        if (car) {
-            res.json(car);
-        } else {
-            res.status(404).json({ error: 'Car not found' });
+        try {
+            const car = await this.carService.getCarById(carId);
+            if (car) {
+                res.json(car);
+            } else {
+                res.status(404).json({ error: 'Car not found' });
+            }
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
         }
     }
 
-    create(req, res) {
+    async create(req, res) {
         const carData = req.body;
-        const success = this.carService.createCar(carData);
-        if (success) {
-            res.json({ message: 'Car created successfully' });
-        } else {
-            res.status(404).json({ error: 'Car not found' });
+        try {
+            const createdCar = await this.carService.createCar(carData);
+            res.status(201).json(createdCar);
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
         }
     }
 
-    update(req, res) {
+    async update(req, res) {
         const carId = parseInt(req.params.id);
         const updatedCarData = req.body;
-        const success = this.carService.updateCar(carId, updatedCarData);
-        if (success) {
-            res.json({ message: 'Car updated successfully' });
-        } else {
-            res.status(404).json({ error: 'Car not found' });
+        try {
+            const success = await this.carService.updateCar(carId, updatedCarData);
+            if (success) {
+                res.json({ message: 'Car updated successfully' });
+            } else {
+                res.status(404).json({ error: 'Car not found' });
+            }
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
         }
     }
 
-    delete(req, res) {
+    async delete(req, res) {
         const carId = parseInt(req.params.id);
-        const success = this.carService.deleteCar(carId);
-        if (success) {
-            res.json({ message: 'Car deleted successfully' });
-        } else {
-            res.status(404).json({ error: 'Car not found or could not be deleted' });
+        try {
+            const success = await this.carService.deleteCar(carId);
+            if (success) {
+                res.json({ message: 'Car deleted successfully' });
+            } else {
+                res.status(404).json({ error: 'Car not found or could not be deleted' });
+            }
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
         }
     }
 

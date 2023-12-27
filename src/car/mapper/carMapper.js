@@ -1,20 +1,20 @@
 const Car = require('../models/car');
 
-function MapperJsonToCar(carDataJson) {
+function carMapper(carData) {
     
     const mappedCar = new Car(
-        carDataJson.id,
-        carDataJson.brand,
-        carDataJson.model,
-        carDataJson.year,
-        carDataJson.mileage,
-        carDataJson.color,
-        carDataJson.air_conditioning,
-        carDataJson.passengers,
-        carDataJson.transmission
+        carData.id,
+        carData.brand,
+        carData.model,
+        carData.year,
+        carData.mileage,
+        carData.color,
+        carData.air_conditioning,
+        carData.passengers,
+        carData.transmission
     );
 
     return mappedCar;
 }
 
-module.exports = MapperJsonToCar;
+module.exports = carMapper;
