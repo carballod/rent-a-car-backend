@@ -1,4 +1,5 @@
 class ClientController {
+
     constructor(clientService) {
         this.clientService = clientService;
     }
@@ -13,45 +14,65 @@ class ClientController {
         app.delete(`${ROUTE}/delete/:id`, this.delete.bind(this));
     }
 
-    index(req, res) {
-        const allClients = this.clientService.getAllClients();
-        res.json(allClients);
-    }
-
-    view(req, res) {
-        const clientIdNumber = parseInt(req.params.id);
-        const client = this.clientService.getClientById(clientIdNumber);
-        if (client) {
-            res.json(client);
-        } else {
-            res.status(404).json({ error: 'Client not found' });
+    async index(req, res) {
+        try {
+            const allClients = await this.clientService.getAllClients();
+            res.json(allClients);
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
         }
     }
 
-    create(req, res) {
-        const clientData = req.body;
-        const createdClient = this.clientService.createClient(clientData);
-        res.status(201).json(createdClient);
+    async view(req, res) {
+        const clientId = parseInt(req.params.id);
+        try {
+            const client = await this.clientService.getClientById(clientId);
+            if (client) {
+                res.json(client);
+            } else {
+                res.status(404).json({ error: 'Client not found' });
+            }
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
+        }
     }
 
-    update(req, res) {
+    async create(req, res) {
+        const clientData = req.body;
+        try {
+            const createdClient = await this.clientService.createClient(clientData);
+            res.status(201).json(createdClient);
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    }
+
+    async update(req, res) {
         const clientId = parseInt(req.params.id);
         const updatedClientData = req.body;
-        const success = this.clientService.updateClient(clientId, updatedClientData);
-        if (success) {
-            res.json({ message: 'Client updated successfully' });
-        } else {
-            res.status(404).json({ error: 'Client not found' });
+        try {
+            const success = await this.clientService.updateClient(clientId, updatedClientData);
+            if (success) {
+                res.json({ message: 'Client updated successfully' });
+            } else {
+                res.status(404).json({ error: 'Client not found' });
+            }
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
         }
     }
 
-    delete(req, res) {
+    async delete(req, res) {
         const clientId = parseInt(req.params.id);
-        const success = this.clientService.deleteClient(clientId);
-        if (success) {
-            res.json({ message: 'Client deleted successfully' });
-        } else {
-            res.status(404).json({ error: 'Client not found or could not be deleted' });
+        try {
+            const success = await this.clientService.deleteClient(clientId);
+            if (success) {
+                res.json({ message: 'Client deleted successfully' });
+            } else {
+                res.status(404).json({ error: 'Client not found or could not be deleted' });
+            }
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
         }
     }
 

@@ -1,21 +1,19 @@
-const Client = require('../models/client');
+const Client = require("../models/client");
 
-function MapperJsonToClient(clientDataJson) {
+function clientMapper(clientData) {
 
-    const mappedClient = new Client(
-        clientDataJson.id,
-        clientDataJson.firstName,
-        clientDataJson.lastName,
-        clientDataJson.idType,
-        clientDataJson.idNumber,
-        clientDataJson.nationality,
-        clientDataJson.address,
-        clientDataJson.phoneNumber,
-        clientDataJson.email,
-        clientDataJson.birthDate
-    )
-
-    return mappedClient;
+  return new Client({
+    idType: clientData.idType,
+    idNumber: clientData.idNumber,
+    firstName: clientData.firstName,
+    lastName: clientData.lastName,
+    nationality: clientData.nationality,
+    address: clientData.address,
+    phoneNumber: clientData.phoneNumber,
+    email: clientData.email,
+    birthDate: clientData.birthDate,
+  });
+  
 }
 
-module.exports = MapperJsonToClient;
+module.exports = clientMapper;

@@ -1,16 +1,52 @@
-class Client {
-    constructor(id, firstName, lastName, idType, idNumber, nationality, address, phoneNumber, email, birthDate) {
-        this.id = id;
-        this.firstName = firstName
-        this.lastName = lastName
-        this.idType = idType
-        this.idNumber = idNumber
-        this.nationality = nationality
-        this.address = address
-        this.phoneNumber = phoneNumber
-        this.email = email
-        this.birthDate = birthDate
-    }
-}
+const { DataTypes } = require("sequelize");
+const sequelize = require("../../config/db");
+
+
+const Client = sequelize.define('Client', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+    allowNull: false,
+  },
+  idType: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  idNumber: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  firstName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  lastName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  nationality: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  address: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  phoneNumber: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  birthDate: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  }
+}, {
+    tableName: 'clients'
+});
 
 module.exports = Client;

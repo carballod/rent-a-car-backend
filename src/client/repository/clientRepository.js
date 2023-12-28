@@ -1,63 +1,31 @@
-const fs = require('fs');
-const path = require('path');
-const mapJsonToClient = require('../mapper/clientMapper');
-
-const DATA_CLIENTS_JSON = path.join(__dirname, '../../../data/clients.json');
+const Client = require('../models/client');
+const clientMapper = require('../mapper/clientMapper');
 
 class ClientRepository {
-    constructor() {
-        this.loadDataClient();
+
+    async getAllClients() {
+        const clients = await Client.findAll();
+        return clients.map(clientMapper)
     }
 
-    loadDataClient() {
-        try {
-            const data = fs.readFileSync(DATA_CLIENTS_JSON, 'utf8');
-            this.clients = JSON.parse(data)
-        } catch (error) {
-            this.clients = [];
-        }
+    async getClientById(clientId) {
+        const client = await Client.findByPk(clientId);
+        return client ? clientMapper(client) : null;
     }
 
-    saveDataClient() {
-        const data = JSON.stringify(this.clients, null, 2);
-        fs.writeFileSync(DATA_CLIENTS_JSON, data, 'utf8');
+    async createClient(clientData) {
+        const newClient = await Client.create(clientData);
+        return newClient.toJSON();
     }
 
-    getAllClients() {
-        return this.clients.map(mapJsonToClient);
+    async updateClient(clientId, updatedClientData) {
+        const [updatedRows] = await Client.update(updatedClientData, { where: { id: clientId } });
+        return updatedRows > 0;
     }
 
-    getClientById(clientId) {
-        clientId = parseInt(clientId);
-        return this.clients.find(client => client.id === clientId);
-    }
-
-    createClient(clientData) {
-        const newClient = mapJsonToClient(clientData);
-        this.clients.push(newClient);
-        this.saveDataClient();
-        return newClient;
-    }
-
-    updateClient(clientId, updatedClientData) {
-        clientId = parseInt(clientId);
-        const index = this.clients.findIndex(client => client.id === clientId);
-        if (index !== -1) {
-            this.clients[index] = { ...this.clients[index], ...updatedClientData };
-            this.saveDataClient();
-            return true;
-        }
-        return false;
-    }
-
-    deleteClient(clientId) {
-        const index = this.clients.findIndex(client => client.id === clientId);
-        if (index !== -1) {
-            this.clients.splice(index, 1);
-            this.saveDataClient();
-            return true;
-        }
-        return false;
+    async deleteClient(clientId) {
+        const deleteRows = await Client.destroy({ where: { id: clientId } });
+        return deleteRows > 0;
     }
 
 }
