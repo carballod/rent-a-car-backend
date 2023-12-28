@@ -16,14 +16,13 @@ class CarService {
         return await this.carRepository.createCar(carData);
     }
 
+    // doble request
     async updateCar(carId, updatedCarData) {
-        const success = await this.carRepository.updateCar(carId, updatedCarData);
-        return success;
+        return await this.carRepository.updateCar(carId, updatedCarData);
     }
 
     async deleteCar(carId) {
-        const success = await this.carRepository.deleteCar(carId);
-        return success;
+        return await this.carRepository.deleteCar(carId);
     }
 }
 

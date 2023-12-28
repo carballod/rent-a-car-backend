@@ -1,20 +1,18 @@
-const Car = require('../models/car');
+const Car = require("../models/car");
 
 function carMapper(carData) {
-    
-    const mappedCar = new Car(
-        carData.id,
-        carData.brand,
-        carData.model,
-        carData.year,
-        carData.mileage,
-        carData.color,
-        carData.air_conditioning,
-        carData.passengers,
-        carData.transmission
-    );
 
-    return mappedCar;
+  return new Car({
+    brand: carData.brand,
+    model: carData.model,
+    year: carData.year,
+    mileage: carData.mileage,
+    color: carData.color,
+    air_conditioning: carData.air_conditioning,
+    passengers: carData.passengers,
+    transmission: carData.transmission,
+  });
+
 }
 
 module.exports = carMapper;

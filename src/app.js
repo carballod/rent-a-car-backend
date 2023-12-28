@@ -1,22 +1,9 @@
 const express = require("express");
 const sequelize = require("./config/db");
-const carModel = require("./car/models/car");
-
+const Car = require("./car/models/car");
 const CarRepository = require("./car/repository/carRepository");
 const CarService = require("./car/service/carService");
 const CarController = require("./car/controllers/carController");
-
-const Car = carModel(sequelize);
-
-sequelize
-  .sync({ force: false })
-  .then(() => {
-    console.log("Database synchronized successfully");
-    crudOperations();
-  })
-  .catch((error) => {
-    console.error("Error synchronizing database:", error);
-  });
 
 const app = express();
 app.use(express.json());
@@ -26,32 +13,32 @@ const carService = new CarService(carRepository);
 const carController = new CarController(carService);
 carController.configureRoutes(app);
 
+sequelize
+  .sync({ force: true })
+  .then(() => {
+    console.log("The table for the Car model was just (re)created!");
 
-async function crudOperations() {
-  try {
-
-    const newCar = {
+    Car.create({
       brand: "Toyota",
       model: "Camry",
       year: 2022,
       mileage: 5000,
-      color: "Silver",
+      color: "Blue",
       air_conditioning: true,
       passengers: 5,
       transmission: "Automatic",
-    };
+    })
+      .then((newCar) => {
+        console.log("Car:", newCar.toJSON());
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
 
-    const createdCar = await Car.create(newCar);
-    console.log("New car:", createdCar);
-
-    const allCars = await Car.findAll();
-    console.log("All cars:", allCars.map(car => car.toJSON()));
-
-
-  } catch (error) {
-    console.error("Error performing CRUD operations:", error);
-  }
-}
+  })
+  .catch((error) => {
+    console.error("Error synchronizing database:", error);
+  });
 
 const PORT = 8080;
 app.listen(PORT, () => {

@@ -42,8 +42,10 @@ class CarController {
         const carData = req.body;
         try {
             const createdCar = await this.carService.createCar(carData);
+            console.log('Car:', createdCar);
             res.status(201).json(createdCar);
         } catch (error) {
+            console.error('Error:', error);
             res.status(500).json({ error: 'Internal server error' });
         }
     }
