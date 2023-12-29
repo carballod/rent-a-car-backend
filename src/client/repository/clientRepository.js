@@ -13,7 +13,16 @@ class ClientRepository {
         return client ? clientMapper(client) : null;
     }
 
+    async getClientByIdTypeAndNumberType(idType, idNumber) {
+        const client = await Client.findOne({ where: { idType, idNumber } })
+        return client ? client(clientMapper) : null;
+    }
+
     async createClient(clientData) {
+        const { idType, idNumber} = clientData;
+        const existsClient = await this.getClientByIdTypeAndNumberType(idType, idNumber);
+        if (existsClient) throw new Error('Client already exists');
+
         const newClient = await Client.create(clientData);
         return newClient.toJSON();
     }
