@@ -3,23 +3,25 @@ class ReservationService {
         this.reservationRepository = reservationRepository;
     }
 
-    getAllReservations() {
-        return this.reservationRepository.getAllReservations();
+    async getAllReservations() {
+        return await this.reservationRepository.getAllReservations();
     }
 
-    getReservationById() {
-        return this.reservationRepository.getReservationById(reservationId);
+    async getReservationById(reservationId) {
+        return await this.reservationRepository.getReservationById(reservationId);
     }
 
-    createReservation(reservationData) {
-        return this.reservationRepository.createReservation(reservationData);
+    async createReservation(reservationData) {
+        return await this.reservationRepository.createReservation(reservationData);
     }
 
-    updateReservation(reservationId, updateReservationData) {
-        return this.reservationRepository.updateReservation(reservationId, updateReservationData);
+    async updateReservation(reservationId, updateReservationData) {
+        return await this.reservationRepository.updateReservation(reservationId, updateReservationData);
     }
 
-    deleteReservation(reservationId) {
-        return this.reservationRepository.deleteReservation(reservationId);
+    async deleteReservation(reservationId) {
+        return await this.reservationRepository.deleteReservation(reservationId);
     }
 }
+
+module.exports = ReservationService;

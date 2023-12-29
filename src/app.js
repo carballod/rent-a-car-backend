@@ -2,12 +2,15 @@ const express = require("express");
 const sequelize = require("./config/db");
 const initCarModule = require("./car/module");
 const initClientModule = require("./client/module");
+const initReservationModule = require("./reservation/module");
 
 const app = express();
 app.use(express.json());
 
 initCarModule(app);
 initClientModule(app);
+initReservationModule(app);
+
 
 sequelize
   .sync()

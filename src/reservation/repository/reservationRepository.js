@@ -1,66 +1,32 @@
-const fs = require('fs');
-const path = require('path');
-const mapperJsonToReservation = require('../mapper/reservationMapper');
-
-const DATA_RESERVATIONS_JSON = path.join(__dirname, '../../../data/reservation.json');
+const Reservation = require("../models/reservation");
+const reservationMapper = require("../mapper/reservationMapper");
 
 class ReservationRepository {
-    constructor() {
-        this.loadDataReservation();
+
+    async getAllReservations() {
+        const reservations = await Reservation.findAll();
+        return reservations.map(reservationMapper);
     }
 
-    loadDataReservation() {
-        try {
-            const data = fs.readFileSync(DATA_RESERVATIONS_JSON, 'utf8');
-            this.reservations = JSON.parse(data)
-        } catch (error) {
-            this.reservations = [];
-        }
+    async getReservationById(reservationId) {
+        const reservations = await Reservation.findByPk(reservationId);
+        return reservations ? reservationMapper(reservations) : null;
     }
 
-    saveDataReservation() {
-        const data = JSON.stringify(this.clients, null, 2);
-        fs.writeFileSync(DATA_RESERVATIONS_JSON, data, 'utf8');
+    async createReservation(reservationData) {
+        const newReservation = await Reservation.create(reservationData);
+        return newReservation.toJSON();
     }
 
-    getAllReservations() {
-        return this.reservations.map(mapperJsonToReservation);
+    async updateReservation(reservationId, updatedReservationData) {
+        const [updatedRows] = await Reservation.update(updatedReservationData, { where: { id: reservationId } });
+        return updatedRows > 0;
     }
 
-    getReservationById(reservationId) {
-        reservationId = parseInt(reservationId);
-        return this.reservations.find(reservation => reservation.id === reservationId);
+    async deleteReservation(reservationId) {
+        const deletedRows = await Reservation.destroy({ where: { id: reservationId } });
+        return deletedRows > 0;
     }
-
-    createReservation(reservationData) {
-        const newReservation = mapperJsonToReservation(reservationData);
-        this.reservations.push(newReservation);
-        this.saveDataReservation();
-        return newReservation;
-    }
-
-    updateReservation(reservationId, updatedReservationData) {
-        reservationId = parseInt(reservationId);
-        const index = this.reservations.findIndex(reservation => reservation.id === reservationId);        
-        if(index !== -1) {
-            this.clients[index] = { ...this.clients[index], ...updatedReservationData };
-            this.saveDataReservation();
-            return true;
-        }
-        return false;
-    }
-
-    deleteReservation(reservationId) {
-        reservationId = parseInt(reservationId);
-        const index = this.reservations.findIndex(reservation => reservation.id === reservationId);
-        if(index !== -1) {
-            this.reservations.splice(index, 1);
-            this.saveDataReservation();
-            return true;
-        }
-        return false;
-    }
-
 }
 
 module.exports = ReservationRepository;

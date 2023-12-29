@@ -1,15 +1,67 @@
+const { DataTypes } = require("sequelize");
+const sequelize = require("../../config/db");
+const Car = require("../../car/models/car");
+const Client = require("../../client/models/client");
 
-// car, client
-class Reservation {
-    constructor(id, pricePerDay, startDate, finishDate, totalPrice, paymentMethod, status) {
-        this.id = id;
-        this.pricePerDay = pricePerDay;
-        this.startDate = startDate;
-        this.finishDate = finishDate;
-        this.totalPrice = totalPrice;
-        this.paymentMethod = paymentMethod;
-        this.status = status;
-    }
-}
+
+const Reservation = sequelize.define(
+  "Reservation",
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
+    },
+    pricePerDay: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+    startDate: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    finishDate: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    paymentMethod: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    paid: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    carId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: Car,
+        key: "id",
+      },
+    },
+    clientId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: Client,
+        key: "id",
+      },
+    },
+  },
+  {
+    tableName: "reservations",
+  }
+);
+
+
+Reservation.belongsTo(Car, { foreignKey: "carId" });
+Reservation.belongsTo(Client, { foreignKey: "clientId" });
+
 
 module.exports = Reservation;

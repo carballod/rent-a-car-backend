@@ -1,18 +1,18 @@
 const Reservation = require('../models/reservation');
 
-function mapperJsonToReservation(reservationDataJson) {
+function reservationMapper(reservationData) {
 
-    const mappedReservation = new Reservation(
-        reservationDataJson.id,
-        reservationDataJson.pricePerDay,
-        reservationDataJson.startDate,
-        reservationDataJson.finishDate,
-        reservationDataJson.totalPrice,
-        reservationDataJson.paymentMethod,
-        reservationDataJson.status
-    )
+    return new Reservation({
+        pricePerDay: reservationData.pricePerDay,
+        startDate: reservationData.startDate,
+        finishDate: reservationData.finishDate,
+        paymentMethod: reservationData.paymentMethod,
+        paid: reservationData.paid,
+        status: reservationData.status,
+        carId: reservationData.carId,
+        clientId: reservationData.clientId
+    })
 
-    return mappedReservation;
 }
 
-module.exports = mapperJsonToReservation;
+module.exports = reservationMapper;
