@@ -1,6 +1,5 @@
 const CarService = require("../carService");
 
-// Mock de carRepository
 const carRepositoryMock = {
   getAllCars: jest.fn(),
   getCarById: jest.fn(),
