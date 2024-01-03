@@ -151,7 +151,7 @@ describe("clientController", () => {
     });
 
     it("error 404 status", async () => {
-        clientService.updateClient.mockResolvedValueOnce(false);
+        clientService.deleteClient.mockResolvedValueOnce(false);
         await clientController.delete({ params: { id: 2 } }, response);
         expect(response.status).toHaveBeenCalledWith(404);
         expect(response.json).toHaveBeenCalledWith({ error: "Client not found or could not be deleted" });
