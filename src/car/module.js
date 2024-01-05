@@ -4,13 +4,17 @@ const CarService = require("./service/carService");
 const CarController = require("./controllers/carController");
 const Reservation = require("../reservation/models/reservation");
 
-function initCarModule(app) {
-  const carRepository = new CarRepository(Car);
-  const carService = new CarService(carRepository);
-  const carController = new CarController(carService);
+function initCarModule(app, diContainer) {
+  const carController = diContainer.get('CarController');
 
   Car.hasOne(Reservation, { foreignKey: "carId" });
   carController.configureRoutes(app);
 }
 
-module.exports = initCarModule;
+module.exports = {
+  initCarModule,
+  Car,
+  CarRepository,
+  CarService,
+  CarController,
+};
