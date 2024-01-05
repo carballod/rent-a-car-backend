@@ -3,6 +3,7 @@ const Client = require("../models/client");
 function clientMapper(clientData) {
 
   return new Client({
+    id: clientData.id,
     idType: clientData.idType,
     idNumber: clientData.idNumber,
     firstName: clientData.firstName,

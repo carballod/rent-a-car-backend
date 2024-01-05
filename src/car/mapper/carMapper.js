@@ -3,6 +3,7 @@ const Car = require("../models/car");
 function carMapper(carData) {
 
   return new Car({
+    id: carData.id,
     brand: carData.brand,
     model: carData.model,
     year: carData.year,
