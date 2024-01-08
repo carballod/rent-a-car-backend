@@ -1,5 +1,7 @@
-const Client = require('../models/client');
-const clientMapper = require('../mapper/clientMapper');
+// const Client = require('../models/client');
+// const clientMapper = require('../mapper/clientMapper');
+import Client from "../models/client.js";
+import clientMapper from "../mapper/clientMapper.js";
 
 class ClientRepository {
 

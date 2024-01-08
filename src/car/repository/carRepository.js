@@ -1,5 +1,5 @@
-const Car = require("../models/car");
-const carMapper = require("../mapper/carMapper");
+import Car from "../models/car.js";
+import carMapper from "../mapper/carMapper.js"
 
 class CarRepository {
 
@@ -29,4 +29,4 @@ class CarRepository {
   }
 }
 
-module.exports = CarRepository;
+export default CarRepository;

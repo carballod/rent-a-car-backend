@@ -1,22 +1,23 @@
-import DIContainer, { object, use, factory, func, IDIContainer } from "rsdi";
-import sequelize from "./db";
+import { DIContainer } from "rsdi";
+import sequelize from "./db.js";
+import {
+  Car,
+  CarRepository,
+  CarService,
+  CarController,
+} from "../car/module.js";
 
+function configureDI() {
+  const container = new DIContainer();
 
-const configureDI = () => {
+  container
+    .add("Sequelize", sequelize)
+    .add("Car", Car)
+    .add("CarRepository", CarRepository)
+    .add("CarService", CarService)
+    .add("CarController", CarController);
 
-    const container = new DIContainer();
-    
-    container.add({
-        Sequelize: sequelize,
-
-        Car: object(Car).construct( use('Sequelize') ),
-        CarRepository: object(CarRepository).construct( use('Car') ),
-        CarService: object(CarService).construct( use('CarRepository') ),
-        CarController: object(CarController).construct( use('CarService') ),
-    });
-
-    return container;
+  return container;
 }
-
 
 export default configureDI;

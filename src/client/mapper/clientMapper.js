@@ -1,4 +1,5 @@
-const Client = require("../models/client");
+// const Client = require("../models/client");
+import Client from "../models/client.js";
 
 function clientMapper(clientData) {
 
@@ -17,4 +18,4 @@ function clientMapper(clientData) {
   
 }
 
-module.exports = clientMapper;
+export default clientMapper;

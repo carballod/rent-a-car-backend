@@ -26,4 +26,4 @@ class CarService {
     }
 }
 
-module.exports = CarService;
+export default CarService;

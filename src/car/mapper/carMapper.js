@@ -1,4 +1,4 @@
-const Car = require("../models/car");
+import Car from "../models/car.js";
 
 function carMapper(carData) {
 
@@ -16,4 +16,4 @@ function carMapper(carData) {
 
 }
 
-module.exports = carMapper;
+export default carMapper;

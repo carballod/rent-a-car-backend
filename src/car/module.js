@@ -1,17 +1,17 @@
-const Car = require("./models/car");
-const CarRepository = require("./repository/carRepository");
-const CarService = require("./service/carService");
-const CarController = require("./controllers/carController");
-const Reservation = require("../reservation/models/reservation");
+import Car from "./models/car.js";
+import CarRepository from "./repository/carRepository.js";
+import CarService from "./service/carService.js";
+import CarController from "./controllers/carController.js";
+import Reservation from "../reservation/models/reservation.js";
 
 function initCarModule(app, diContainer) {
-  const carController = diContainer.get('CarController');
+  const carController = diContainer.get("CarController");
 
   Car.hasOne(Reservation, { foreignKey: "carId" });
   carController.configureRoutes(app);
 }
 
-module.exports = {
+export {
   initCarModule,
   Car,
   CarRepository,

@@ -1,10 +1,11 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../../config/db");
+// const { DataTypes } = require("sequelize");
+import { DataTypes } from "sequelize";
+import sequelize from  "../../config/db.js";
 
 
 const Client = sequelize.define('Client', {
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes,
     primaryKey: true,
     autoIncrement: true,
     allowNull: false,
@@ -49,4 +50,4 @@ const Client = sequelize.define('Client', {
     tableName: 'clients'
 });
 
-module.exports = Client;
+export default Client;

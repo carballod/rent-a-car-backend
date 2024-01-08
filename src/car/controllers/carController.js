@@ -79,4 +79,4 @@ class CarController {
 
 }
 
-module.exports = CarController;
+export default CarController;

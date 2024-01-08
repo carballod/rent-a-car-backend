@@ -1,7 +1,12 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../../config/db");
-const Car = require("../../car/models/car");
-const Client = require("../../client/models/client");
+// const { DataTypes } = require("sequelize");
+// const sequelize = require("../../config/db");
+// const Car = require("../../car/models/car");
+// const Client = require("../../client/models/client");
+
+import { DataTypes } from "sequelize";
+import sequelize from "../../config/db.js";
+import Car from "../../car/models/car.js";
+import Client from "../../client/models/client.js";
 
 
 const Reservation = sequelize.define(
@@ -64,4 +69,4 @@ Reservation.belongsTo(Car, { foreignKey: "carId" });
 Reservation.belongsTo(Client, { foreignKey: "clientId" });
 
 
-module.exports = Reservation;
+export default Reservation;

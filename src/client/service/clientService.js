@@ -24,4 +24,4 @@ class ClientService {
     }
 }
 
-module.exports = ClientService;
+export default ClientService;
