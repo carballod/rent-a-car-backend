@@ -12,10 +12,10 @@ function configureDI() {
 
   container
     .add("Sequelize", sequelize)
-    .add("Car", Car)
-    .add("CarRepository", CarRepository)
-    .add("CarService", CarService)
-    .add("CarController", CarController);
+    .add("Car", (container) => Car.setup(container.get("Sequelize")))
+    .add("CarRepository", (container) => new CarRepository(container.get("Car")))
+    .add("CarService", (container) => new CarService(container.get("CarRepository")))
+    .add("CarController", (container) => new CarController(container.get("CarService")));
 
   return container;
 }
