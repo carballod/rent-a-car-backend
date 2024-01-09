@@ -1,30 +1,28 @@
-// const cors = require("cors")
-// const initClientModule = require("./client/module");
-// const initReservationModule = require("./reservation/module");
-
 import express from "express";
+import cors from "cors";
 import sequelize from "./config/db.js";
+import configureDI from "./config/di.js";
 import { initCarModule } from "./car/module.js";
-import configureDI from "./config/DI.js";
+import { initClientModule } from "./client/module.js";
+import { initReservationModule } from "./reservation/module.js";
 
 const app = express();
 app.use(express.json());
 
 
-// const corsOptions = {
-//   origin: 'http://localhost:3000',
-//   methods: 'GET,PUT,PATCH,POST,DELETE',
-//   credentials: true,
-//   optionsSuccessStatus: 204,
-// };
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  methods: 'GET,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+app.use(cors(corsOptions));
 
-// app.use(cors(corsOptions));
 
 const diContainer = configureDI();
 initCarModule(app, diContainer);
-
-// initClientModule(app);
-// initReservationModule(app);
+initClientModule(app, diContainer);
+initReservationModule(app, diContainer);
 
 
 sequelize

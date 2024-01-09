@@ -78,4 +78,4 @@ class ReservationController {
 
 }
 
-module.exports = ReservationController;
+export default ReservationController;

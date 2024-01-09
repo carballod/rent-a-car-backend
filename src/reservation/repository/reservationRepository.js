@@ -1,5 +1,5 @@
-const Reservation = require("../models/reservation");
-const reservationMapper = require("../mapper/reservationMapper");
+import Reservation from "../models/reservation.js";
+import reservationMapper from "../mapper/reservationMapper.js";
 
 class ReservationRepository {
 
@@ -29,4 +29,4 @@ class ReservationRepository {
     }
 }
 
-module.exports = ReservationRepository;
+export default ReservationRepository;

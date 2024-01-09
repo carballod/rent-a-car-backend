@@ -24,4 +24,4 @@ class ReservationService {
     }
 }
 
-module.exports = ReservationService;
+export default ReservationService;

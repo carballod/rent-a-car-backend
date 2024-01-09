@@ -1,13 +1,18 @@
-const Reservation = require("./models/reservation");
-const ReservationRepository = require("./repository/reservationRepository");
-const ReservationService = require("./service/reservationService");
-const ReservationController = require("./controllers/reservationController");
+import Reservation from "./models/reservation.js";
+import ReservationRepository from "./repository/reservationRepository.js";
+import ReservationService from "./service/reservationService.js";
+import ReservationController from "./controllers/reservationController.js";
 
-function initReservationModule(app) {
-  const reservationRepository = new ReservationRepository(Reservation);
-  const reservationService = new ReservationService(reservationRepository);
-  const reservationController = new ReservationController(reservationService);
+function initReservationModule(app, diContainer) {
+  const reservationController = diContainer.get("ReservationController")
+
   reservationController.configureRoutes(app);
 }
 
-module.exports = initReservationModule;
+export {
+  initReservationModule,
+  Reservation,
+  ReservationRepository,
+  ReservationService,
+  ReservationController,
+};

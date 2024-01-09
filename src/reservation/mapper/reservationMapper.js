@@ -1,4 +1,4 @@
-const Reservation = require('../models/reservation');
+import Reservation from "../models/reservation.js";
 
 function reservationMapper(reservationData) {
 
@@ -16,4 +16,4 @@ function reservationMapper(reservationData) {
 
 }
 
-module.exports = reservationMapper;
+export default reservationMapper;

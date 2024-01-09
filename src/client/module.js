@@ -1,17 +1,18 @@
-// const Client = require("./models/client");
-// const ClientRepository = require("./repository/clientRepository");
-// const ClientService = require("./service/clientService");
-// const ClientController = require("./controllers/clientController");
-// const Reservation = require("../reservation/models/reservation");
+import Client from "./models/client.js";
+import ClientRepository from "./repository/clientRepository.js";
+import ClientService from "./service/clientService.js";
+import ClientController from "./controllers/clientController.js";
 
+function initClientModule(app, diContainer) {
+  const clientController = diContainer.get("ClientController");
 
-function initClientModule(app) {
-  const clientRepository = new ClientRepository(Client);
-  const clientService = new ClientService(clientRepository);
-  const clientController = new ClientController(clientService);
-
-  Client.hasOne(Reservation, { foreignKey: "clientId" });
   clientController.configureRoutes(app);
 }
 
-export default initClientModule;
+export {
+  initClientModule,
+  Client,
+  ClientRepository,
+  ClientService,
+  ClientController,
+};
