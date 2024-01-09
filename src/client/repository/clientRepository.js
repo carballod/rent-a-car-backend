@@ -1,4 +1,4 @@
-import clientMapper from "../mapper/clientMapper.js";
+import fromModelToEntity from "../mapper/clientMapper.js";
 
 class ClientRepository {
     constructor(Client) {
@@ -7,17 +7,17 @@ class ClientRepository {
 
     async getAllClients() {
         const clients = await this.client.findAll();
-        return clients.map(clientMapper)
+        return clients.map(fromModelToEntity)
     }
 
     async getClientById(clientId) {
         const client = await this.client.findByPk(clientId);
-        return client ? clientMapper(client) : null;
+        return client ? fromModelToEntity(client) : null;
     }
 
     async getClientByIdTypeAndNumberType(idType, idNumber) {
         const client = await this.client.findOne({ where: { idType, idNumber } })
-        return client ? client(clientMapper) : null;
+        return client ? client(fromModelToEntity) : null;
     }
 
     async createClient(clientData) {

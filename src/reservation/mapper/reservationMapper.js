@@ -1,19 +1,19 @@
 import Reservation from "../models/reservation.js";
 
-function reservationMapper(reservationData) {
-
+function fromModelToEntity({ id, pricePerDay, startDate, finishDate, paymentMethod, paid, status, carId, clientId }) {
+  
     return new Reservation({
-        id: reservationData.id,
-        pricePerDay: reservationData.pricePerDay,
-        startDate: reservationData.startDate,
-        finishDate: reservationData.finishDate,
-        paymentMethod: reservationData.paymentMethod,
-        paid: reservationData.paid,
-        status: reservationData.status,
-        carId: reservationData.carId,
-        clientId: reservationData.clientId
-    })
-
+    id,
+    pricePerDay,
+    startDate,
+    finishDate,
+    paymentMethod,
+    paid,
+    status,
+    carId,
+    clientId,
+  });
+  
 }
 
-export default reservationMapper;
+export default fromModelToEntity;

@@ -8,7 +8,7 @@ class CarController {
         const ROUTE = '/cars';
 
         app.get(`${ROUTE}`, this.index.bind(this));
-        app.get(`${ROUTE}/view/:id`, this.view.bind(this));
+        app.get(`${ROUTE}/:id`, this.getById.bind(this));
         app.post(`${ROUTE}/create`, this.create.bind(this));
         app.put(`${ROUTE}/update/:id`, this.update.bind(this));
         app.delete(`${ROUTE}/delete/:id`, this.delete.bind(this));
@@ -24,7 +24,7 @@ class CarController {
         }
     }
 
-    async view(req, res) {
+    async getById(req, res) {
         const carId = parseInt(req.params.id);
         try {
             const car = await this.carService.getCarById(carId);

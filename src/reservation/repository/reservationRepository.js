@@ -1,4 +1,4 @@
-import reservationMapper from "../mapper/reservationMapper.js";
+import fromModelToEntity from "../mapper/reservationMapper.js";
 
 class ReservationRepository {
     constructor(Reservation) {
@@ -7,12 +7,12 @@ class ReservationRepository {
 
     async getAllReservations() {
         const reservations = await this.reservation.findAll();
-        return reservations.map(reservationMapper);
+        return reservations.map(fromModelToEntity);
     }
 
     async getReservationById(reservationId) {
         const reservations = await this.reservation.findByPk(reservationId);
-        return reservations ? reservationMapper(reservations) : null;
+        return reservations ? fromModelToEntity(reservations) : null;
     }
 
     async createReservation(reservationData) {
