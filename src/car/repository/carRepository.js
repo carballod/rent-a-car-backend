@@ -1,4 +1,4 @@
-import carMapper from "../mapper/carMapper.js"
+import fromModelToEntity from "../mapper/carMapper.js";
 
 class CarRepository {
   constructor(Car) {
@@ -7,12 +7,12 @@ class CarRepository {
 
   async getAllCars() {
     const cars = await this.car.findAll();
-    return cars.map(carMapper);
+    return cars.map(fromModelToEntity);
   }
 
   async getCarById(carId) {
     const car = await this.car.findByPk(carId);
-    return car ? carMapper(car) : null;
+    return car ? fromModelToEntity(car) : null;
   }
 
   async createCar(carData) {

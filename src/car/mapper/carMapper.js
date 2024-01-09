@@ -1,19 +1,17 @@
-import Car from "../models/car.js";
+import Car from "../entities/Car.js";
 
-function carMapper(carData) {
-
+function fromModelToEntity({ id, brand, model, year, mileage, color, air_conditioning, passengers, transmission }) {
   return new Car({
-    id: carData.id,
-    brand: carData.brand,
-    model: carData.model,
-    year: carData.year,
-    mileage: carData.mileage,
-    color: carData.color,
-    air_conditioning: carData.air_conditioning,
-    passengers: carData.passengers,
-    transmission: carData.transmission,
+    id,
+    brand,
+    model,
+    year,
+    mileage,
+    color,
+    air_conditioning,
+    passengers,
+    transmission,
   });
-
 }
 
-export default carMapper;
+export default fromModelToEntity;
