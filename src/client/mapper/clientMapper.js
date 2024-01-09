@@ -1,21 +1,18 @@
-// const Client = require("../models/client");
-import Client from "../models/client.js";
+import Client from "../entities/Client.js";
 
-function clientMapper(clientData) {
-
+function fromModelToEntity({ id, idType, idNumber, firstName, lastName, nationality, address, phoneNumber, email, birthDate, }) {
   return new Client({
-    id: clientData.id,
-    idType: clientData.idType,
-    idNumber: clientData.idNumber,
-    firstName: clientData.firstName,
-    lastName: clientData.lastName,
-    nationality: clientData.nationality,
-    address: clientData.address,
-    phoneNumber: clientData.phoneNumber,
-    email: clientData.email,
-    birthDate: clientData.birthDate,
+    id,
+    idType, 
+    idNumber,
+    firstName,
+    lastName,
+    nationality,
+    address,
+    phoneNumber,
+    email,
+    birthDate,
   });
-  
 }
 
-export default clientMapper;
+export default fromModelToEntity;
