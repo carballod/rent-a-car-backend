@@ -8,7 +8,7 @@ class ClientController {
         const ROUTE = '/clients';
 
         app.get(`${ROUTE}`, this.index.bind(this));
-        app.get(`${ROUTE}/view/:id`, this.view.bind(this));
+        app.get(`${ROUTE}/:id`, this.getById.bind(this));
         app.post(`${ROUTE}/create`, this.create.bind(this));
         app.put(`${ROUTE}/update/:id`, this.update.bind(this));
         app.delete(`${ROUTE}/delete/:id`, this.delete.bind(this));
@@ -23,7 +23,7 @@ class ClientController {
         }
     }
 
-    async view(req, res) {
+    async getById(req, res) {
         const clientId = parseInt(req.params.id);
         try {
             const client = await this.clientService.getClientById(clientId);
